@@ -1,0 +1,32 @@
+supported_arch_by_os:
+  RedHat6:
+    - x86_64
+  RedHat7:
+    - x86_64
+  Solaris11:
+    - SPARC64
+    - SPARC64
+  Windows:
+    - x86_64
+compliant_jdk_by_os:
+  RedHat6:
+    openjdk:
+      - 1.8
+    oracle:
+      - 1.8
+      - 11
+    ibm:
+      - 1.8
+  RedHat7:
+    openjdk:
+      - 1.8
+      - 11
+    oracle:
+      - 1.8
+      - 11
+    ibm:
+      - 1.8
+  Solaris11:
+    oracle:
+      - 1.8
+

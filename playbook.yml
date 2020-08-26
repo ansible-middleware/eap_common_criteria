@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  gather_facts: true
+  vars:
+    jboss_home: "{{ lookup('env','JBOSS_HOME') }}"
+    java_home: "{{ lookup('env', 'JAVA_HOME') }}"
+    java_version: "1.8"
+    jdk_id: openjdk
+  roles:
+    - eap_common_criteria
+  tasks:
+
