@@ -1,0 +1,7 @@
+WILDFLY_SERVER_CONFIG={{ jbossas.config_name }}.xml
+
+WILDFLY_OPTS=-Djboss.server.config.dir={{ jboss_home }}/standalone/configuration/ -Djboss.server.base.dir={{ jbossas.basedir }} -Djboss.tx.node.id={{ jbossas.instance_id }} -Djboss.node.name={{ jbossas.config_name }}
+
+WILDFLY_BIND={{ jbossas.bind_addr }}
+WILDFLY_HOME={{ jboss_home }}
+JBOSS_PIDFILE={{ jbossas.basedir }}/{{ jbossas.config_name }}.pid

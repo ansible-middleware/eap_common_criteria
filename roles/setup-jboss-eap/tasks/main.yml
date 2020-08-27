@@ -1,0 +1,62 @@
+- name: "Check that required variables are defined"
+  assert:
+    that:
+      - jbossas is defined
+      - jbossas.user is defined
+      - jbossas.basedir is defined
+      - jbossas.base_config is defined
+      - jbossas.config_name is defined
+      - jbossas.instance_id
+      - jboss_home is defined
+    fail_msg: "Missing required variables"
+    quiet: true
+
+- name : "Ensure basedir instance exists"
+  file:
+    path: "{{ jbossas.basedir }}"
+    state: directory
+    owner: "{{ jbossas.user }}"
+    group: "{{ jbossas.user }}"
+    mode: '0755'
+
+- name : "Creates deployment directory"
+  file:
+    path: "{{ jbossas.basedir }}/deployments"
+    state: directory
+    owner: "{{ jbossas.user }}"
+    group: "{{ jbossas.user }}"
+    mode: '0755'
+
+- name: "Deploy Wildfy configuration"
+  copy:
+    src: "{{ jboss_home }}/standalone/configuration/{{ jbossas.base_config }}"
+    dest: "{{ jboss_home }}/standalone/configuration/{{ jbossas.config_name }}.xml"
+    group: "{{ jbossas.user }}"
+    owner: "{{ jbossas.user }}"
+    remote_src: true
+    force: no
+
+- name: "Deploy Systemd configuration for JBoss AS service"
+  template:
+    src: templates/jbossas.service.j2
+    dest: "/usr/lib/systemd/system/{{ jbossas.config_name }}.service"
+    group: root
+    owner: root
+
+- name: "Deploy JBoss AS service instance configuration"
+  template:
+    src: templates/jbossas.conf.j2
+    dest: "/etc/{{ jbossas.config_name}}.conf"
+    group: root
+    owner: root
+
+- name: "Perform daemon-reload to ensure the changes are picked up"
+  systemd:
+    daemon_reload: yes 
+
+- name: "Start JBossAS Server"
+  service:
+    name: "{{ jbossas.config_name }}"
+    state: started
+    enabled: yes 
+
