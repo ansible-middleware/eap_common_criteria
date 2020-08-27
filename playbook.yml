@@ -1,5 +1,38 @@
 ---
-- hosts: localhost
+- name: "Set up JBoss EAP"
+  hosts: localhost
+  gather_facts: true
+  vars:
+    jboss_home: "{{ lookup('env','JBOSS_HOME') }}"
+    java_home: "{{ lookup('env', 'JAVA_HOME') }}"
+    jbossas:
+      user: root
+      basedir: /var/run/jbossas 
+      base_config: standalone.xml
+      config_name: jbossas
+      instance_id: jbossas 
+      bind_addr: 127.0.0.1
+  collections:
+    - wildfly.jcliff
+  roles:
+    - setup-jboss-eap 
+    - setup-pgsql-driver
+    - jcliff
+  tasks:
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - system_props:
+              - name: jcliff.enabled
+                value: 'enabled.plus'
+          - drivers:
+              - driver_name: postgresql
+                driver_module_name: org.postgresql
+                driver_class_name: org.postgresql.Driver
+                driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource 
+
+- name: "Check compliance of EAP setup with Common Criteria"
+  hosts: localhost
   gather_facts: true
   vars:
     jboss_home: "{{ lookup('env','JBOSS_HOME') }}"
@@ -8,5 +41,3 @@
     jdk_id: openjdk
   roles:
     - eap_common_criteria
-  tasks:
-
