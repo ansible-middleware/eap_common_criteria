@@ -1,0 +1,23 @@
+- name: "Checks required jboss_home var is defined"
+  assert:
+    that:
+      - jboss_home is defined
+    fail_msg: "No jboss_home is defined"
+    quiet: true
+
+- name: "Set up module dir for Postgres JDBC Driver"
+  file:
+    path: "{{ psql_module_home }}"
+    state: directory
+    recurse: yes 
+ 
+- name: "Ensures Wildfly Postgres Driver is present"
+  uri:
+    url: "https://repo.maven.apache.org/maven2/org/postgresql/postgresql/{{ jdbc_driver_version }}/{{ jdbc_driver_jar_filename }}"
+    dest: "{{ psql_module_home }}/{{ jdbc_driver_jar_filename }}" 
+    creates: "{{ psql_module_home }}/{{ jdbc_driver_jar_filename }}" 
+ 
+- name: "Deploy module.xml for Postgres JDBC Driver"
+  template:
+    src: templates/pgsql_jdbc_driver_module.xml.j2
+    dest: "{{ psql_module_home }}/module.xml"

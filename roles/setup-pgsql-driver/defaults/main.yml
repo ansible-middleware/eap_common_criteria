@@ -1,0 +1,3 @@
+psql_module_home: "{{ jboss_home }}//modules/org/postgresql/main/"
+jdbc_driver_version: 9.2-1002-jdbc4
+jdbc_driver_jar_filename: "postgresql-{{ jdbc_driver_version }}.jar"
