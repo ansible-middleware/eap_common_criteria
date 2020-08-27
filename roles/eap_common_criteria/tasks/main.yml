@@ -34,11 +34,6 @@
       - ansible_architecture in supported_arch_by_os.{{ cc_os_id }}
     fail_msg: "Architecture is not in compliance with Common Criteria recommendation: {{ ansible_architecture }}"
 
-- name:
-  set_fact:
-    java_version:
-
-
 - name: "Check that the Java version used is in complianece with Common Criteria recommendations: {{ java_home }} /  {{ compliant_jdk_by_os.RedHat7.openjdk[0] }}"
   assert:
     that:
@@ -66,7 +61,14 @@
 
 - name:
   set_fact:
-    actual_java_version: "{{ java_version_output.stderr_lines[0]|join(' ') }}"
+    actual_java_version: "{{ java_version_output.stderr }}"
+
+- name: "Check that JDK matches expected version: {{ java_version_output }}"
+  assert:
+    that:
+      - java_version in actual_java_version
+    fail_msg: "Provided JDK does not match expected Java version: {{ actual_java_version }}."
+    quiet: true
 
 #- name: "Check that JDK matches expected version: {{ java_version_output }}"
 #  assert:
