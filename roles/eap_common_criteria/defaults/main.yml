@@ -30,3 +30,5 @@ compliant_jdk_by_os:
     oracle:
       - 1.8
 
+java_version: "1.8"
+jdk_id: openjdk

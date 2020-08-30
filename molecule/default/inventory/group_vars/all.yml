@@ -1,0 +1,9 @@
+---
+wfly_version: 18.0.1.Final
+workdir: /opt/wildfly/
+wfly_zipfile: "wildfly-{{ wfly_version }}.zip"
+wfly_download_url: https://download.jboss.org/wildfly/{{ wfly_version }}/{{ wfly_zipfile }}
+jboss_home_override: "{{ workdir }}/wildfly-{{ wfly_version }}/"
+jboss:
+  user: jbossas
+java_home_override: /usr/lib/jvm/jre

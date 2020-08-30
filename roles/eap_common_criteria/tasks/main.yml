@@ -46,6 +46,7 @@
 - name: "Recording informations on {{ java_home }}"
   stat:
     path: "{{ java_home }}"
+    follow: True
   register: java_home_path
 
 - name: "Check that provided JAVA_HOME exists and is a folder: {{ java_home }}"

@@ -1,0 +1,8 @@
+---
+jbossas:
+  user: root
+  basedir: /var/run/jbossas
+  base_config: standalone.xml
+  config_name: jbossas
+  instance_id: jbossas
+  bind_addr: 127.0.0.1
