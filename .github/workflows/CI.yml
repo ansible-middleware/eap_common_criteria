@@ -31,6 +31,5 @@ jobs:
       - name: Download Collections
         run: |
           ansible-galaxy collection install -r collections/requirements.yml
-
       - name: Run molecule test
         run: molecule test
