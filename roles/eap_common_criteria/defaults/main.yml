@@ -29,6 +29,9 @@ compliant_jdk_by_os:
   Solaris11:
     oracle:
       - 1.8
+jdbc_classnames:
+  allowed:
+    - org.postgresql.xa.PGXADataSource
+  warn:
+    - org.h2.jdbcx.JdbcDataSource
 
-java_version: "1.8"
-jdk_id: openjdk
