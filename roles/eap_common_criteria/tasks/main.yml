@@ -87,3 +87,9 @@
 - name: Check that JDBC drivers are in compliance with Common Criteria
   include_tasks: jdbc_drivers_compliance.yml
   loop: "{{ (jdbc_driver_class_names.stdout | from_json)['result'] }}"
+
+- name: Check that used network ports are in compliance with Common Criteria recommendations
+  include_tasks: port_compliance.yml
+  loop:
+    - { cli_query_info_port: "/socket-binding-group=standard-sockets/socket-binding=https:read-attribute(name=port)", allowed_port: "8443" }
+    - { cli_query_info_port: "/socket-binding-group=standard-sockets/socket-binding=http:read-attribute(name=port)", allowed_port: "8080" }
