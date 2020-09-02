@@ -34,4 +34,9 @@ jdbc_classnames:
     - org.postgresql.xa.PGXADataSource
   warn:
     - org.h2.jdbcx.JdbcDataSource
-
+jbossas_mode:
+  - standalone
+  - domain
+service_manager_types:
+  - SystemD
+  - InitD

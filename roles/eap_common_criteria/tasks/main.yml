@@ -93,3 +93,6 @@
   loop:
     - { cli_query_info_port: "/socket-binding-group=standard-sockets/socket-binding=https:read-attribute(name=port)", allowed_port: "8443" }
     - { cli_query_info_port: "/socket-binding-group=standard-sockets/socket-binding=http:read-attribute(name=port)", allowed_port: "8080" }
+
+- name: Check EAP start script compliance with Common Criteria recommendations
+  include_tasks: service_script_compliance.yml

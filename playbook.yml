@@ -32,5 +32,9 @@
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
     jdk_id: openjdk    
     java_version: "1.8"
+    jboss_server_service:
+      script: "/usr/lib/systemd/system/jbossas.service"
+      type: "SystemD"
+      mode: "standalone"
   roles:
     - eap_common_criteria
