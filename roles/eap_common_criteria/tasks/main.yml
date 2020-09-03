@@ -96,3 +96,27 @@
 
 - name: Check EAP start script compliance with Common Criteria recommendations
   include_tasks: service_script_compliance.yml
+
+- name: Analyse network configuration
+  shell: >
+    {{ jboss_home }}/bin/jboss-cli.sh -c  --output-json --command='/interface=*:read-resource'
+  register: jbossas_interfaces
+  changed_when: false
+
+- name: Check EAP network configuration compliance
+  include_tasks: network_configuration_compliance.yml
+  loop: "{{ (jbossas_interfaces.stdout | from_json).result }}"
+  loop_control:
+    loop_var: jbossas_interface
+
+- name: Analyse socket bindings configuration
+  shell: >
+   {{ jboss_home }}/bin/jboss-cli.sh -c --output-json --command=/socket-binding-group=standard-sockets/socket-binding=*:read-resource
+  register: socket_bindings
+  changed_when: false
+
+- name: Check compliance of socket bindings with Common Criteria recommendations
+  include_tasks: protocol_interface_compliance.yml
+  loop: "{{ (socket_bindings.stdout | from_json ).result }}"
+  loop_control:
+    loop_var: socket_binding

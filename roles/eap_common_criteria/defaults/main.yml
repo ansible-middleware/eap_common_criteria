@@ -40,3 +40,54 @@ jbossas_mode:
 service_manager_types:
   - SystemD
   - InitD
+allowed_network_interfaces:
+  - management 
+  - public
+  - cluster
+  - internal
+allowed_protocol_by_interface:
+  ajp:
+    interface: [internal]
+    port: "8009"
+  http:
+    interface: [public]
+    port: "8080"
+  https:
+    interface: [public]
+    port: "8443"
+  management_http:
+    interface: [internal]
+    port: "9990"
+  management_https:
+    interface: [internal]
+    port: "9993"
+  txn_recovery_environment:
+    interface: [internal]
+    port: "4712"
+  txn_status_manager:
+    interface: [internal]
+    port: "4713"
+  iiop:
+    interface: [internal]
+    port: "3528"
+  iiop-ssl:
+    interface: [internal]
+    port: "3529" 
+  jgroups-mping:
+    interface: [cluster]
+    port: "0"
+  jgroups-tcp: 
+    interface: [cluster]
+    port: "7600"
+  jgroups-udp:
+    interface: [cluster]
+    port: "55200"
+  messaging:
+    interface: [internal]
+    port: "5445"
+  messaging-throughput:
+    interface: [internal]
+    port: "5455"
+  modcluster:
+    interface: [public, internal]
+    port: "5455"
