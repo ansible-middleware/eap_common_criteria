@@ -1,7 +1,7 @@
 ---
 - name: "Set up JBoss EAP"
   hosts: jboss
-  gather_facts: true
+  gather_facts: "{{ gather_facts_override | default('true') }}"
   vars:
     jboss_home: "{{ jboss_home_override | default(lookup('env','JBOSS_HOME')) }}"
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
