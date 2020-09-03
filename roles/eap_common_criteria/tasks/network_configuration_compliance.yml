@@ -7,10 +7,6 @@
     fail_msg: Required parameter(s) not provided
     quiet: true
 
-- name: DEBUG
-  debug:
-    msg: "{{ jbossas_interface }}"
-
 - set_fact:
     interface_name: "{{ jbossas_interface.address[0].interface }}"
  
