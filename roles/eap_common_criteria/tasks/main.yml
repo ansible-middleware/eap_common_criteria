@@ -120,3 +120,15 @@
   loop: "{{ (socket_bindings.stdout | from_json ).result }}"
   loop_control:
     loop_var: socket_binding
+
+- name: Analyse subsystems
+  command: >
+   {{ jboss_home }}/bin/jboss-cli.sh -c --output-json --command="/subsystem=*:read-resource"
+  register: subsystems_names
+  changed_when: false
+
+- name: Check only recommended subsystems are used
+  include_tasks: validate_subsys.yml
+  loop: "{{ (subsystems_names.stdout | from_json)['result'] }}"
+  loop_control:
+    loop_var: subsystem
