@@ -23,6 +23,28 @@
                 driver_module_name: org.postgresql
                 driver_class_name: org.postgresql.Driver
                 driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource
+          - interfaces:
+              - name: internal
+                inet_address: '127.0.0.1'
+              - name: public
+                inet_address: '127.0.0.1'
+          - standard_sockets:
+              - name: ajp
+                interface: internal
+                port: '8009'
+              - name: http
+                interface: public
+                port: '8080'
+              - name: https
+                interface: public
+                port: '8443'
+              - name: management-http
+                interface: internal
+                port: 9990
+              - name: management-https
+                interface: internal
+                port: 9993
+
 
 - name: "Check compliance of EAP setup with Common Criteria"
   hosts: jboss
