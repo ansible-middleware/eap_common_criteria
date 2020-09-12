@@ -25,34 +25,65 @@
                 driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource
           - interfaces:
               - name: internal
-                inet_address: '127.0.0.1'
+                inet_address: "127.0.0.1"
               - name: public
-                inet_address: '127.0.0.1'
+                inet_address: "127.0.0.1"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
           - standard_sockets:
               - name: ajp
                 interface: internal
-                port: '8009'
+                port: "8009"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
               - name: http
                 interface: public
-                port: '8080'
+                port: "8080"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
               - name: https
                 interface: public
-                port: '8443'
+                port: "8443"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
               - name: management-http
                 interface: internal
-                port: 9990
+                port: "9990"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
               - name: management-https
                 interface: internal
-                port: 9993
-
-
+                port: "9993"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
+              - name: txn-recovery-environment
+                interface: internal
+                port: "4712"
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        subsystems:
+          - standard_sockets:
+              - name: txn-status-manager
+                interface: internal
+                port: "4713"
 - name: "Check compliance of EAP setup with Common Criteria"
   hosts: jboss
   gather_facts: "{{ gather_facts_override | default('true') }}"
   vars:
     jboss_home: "{{ jboss_home_override | default(lookup('env','JBOSS_HOME')) }}"
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
-    jdk_id: openjdk    
+    jdk_id: openjdk
     java_version: "1.8"
     jboss_server_service:
       script: "/usr/lib/systemd/system/jbossas.service"
