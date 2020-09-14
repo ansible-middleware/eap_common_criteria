@@ -23,7 +23,7 @@ verifier:
 scenario:
   name: default
   test_sequence:
-#    - dependency
+    - dependency
     - lint
     - cleanup
     - destroy
@@ -31,7 +31,7 @@ scenario:
     - create
     - prepare
     - converge
-# -   idempotence
+    # -   idempotence
     - side_effect
     - verify
     - cleanup

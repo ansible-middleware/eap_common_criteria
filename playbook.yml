@@ -14,6 +14,7 @@
   tasks:
     - jcliff:
         wfly_home: "{{ jboss_home }}"
+        timeout: 5000000
         subsystems:
           - system_props:
               - name: jcliff.enabled
@@ -25,17 +26,41 @@
                 driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource
           - interfaces:
               - name: internal
-                inet_address: '127.0.0.1'
+                inet_address: "127.0.0.1"
               - name: public
-                inet_address: '127.0.0.1'
+                inet_address: "127.0.0.1"
 
-    - name: "Configure protocols and associated interfaces"
-      include_tasks: tasks/jcliff.yml
-
+    - jcliff:
+        wfly_home: "{{ jboss_home }}"
+        timeout: 5000000
+        subsystems:
+          - standard_sockets:
+              socket_binding:
+                - name: ajp
+                  interface: internal
+                  port: "8009"
+                - name: http
+                  interface: public
+                  port: "8080"
+                - name: https
+                  interface: public
+                  port: "8443"
+                - name: management-http
+                  interface: internal
+                  port: "9990"
+                - name: management-https
+                  interface: internal
+                  port: "9993"
+                - name: txn-recovery-environment
+                  interface: internal
+                  port: "4712"
+                - name: txn-status-manager
+                  interface: internal
+                  port: "4713"
 
     - name: "Restart server"
       service:
-        name: 'jbossas'
+        name: "jbossas"
         state: restarted
       changed_when: false
 
@@ -45,7 +70,7 @@
   vars:
     jboss_home: "{{ jboss_home_override | default(lookup('env','JBOSS_HOME')) }}"
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
-    jdk_id: openjdk 
+    jdk_id: openjdk
     java_version: "1.8"
     jboss_server_service:
       script: "/usr/lib/systemd/system/jbossas.service"
