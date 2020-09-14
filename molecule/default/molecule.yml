@@ -23,7 +23,7 @@ verifier:
 scenario:
   name: default
   test_sequence:
-    - dependency
+#    - dependency
     - lint
     - cleanup
     - destroy
