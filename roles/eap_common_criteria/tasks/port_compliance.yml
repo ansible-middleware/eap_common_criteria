@@ -18,6 +18,7 @@
     
     - set_fact:
         port_value: "{{ (infos_on_port.stdout | from_json).result.EXPRESSION_VALUE }}"
+      when: (infos_on_port.stdout | from_json).result.EXPRESSION_VALUE is defined
     
     - name: Check that port is in compliance with Common Criteria recommendations
       assert:
