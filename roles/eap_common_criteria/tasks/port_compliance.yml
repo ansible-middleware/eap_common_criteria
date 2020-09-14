@@ -29,5 +29,5 @@
         quiet: true
   rescue:
     - debug:
-        msg: "This instance does NOT use the following protocole: {{ item.cli_query_info_port }}" 
+        msg: "This instance does NOT use the following protocol: {{ item.cli_query_info_port }}" 
  
