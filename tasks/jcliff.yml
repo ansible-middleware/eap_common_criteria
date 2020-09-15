@@ -1,6 +1,7 @@
 - jcliff:
     wfly_home: "{{ jboss_home }}"
     subsystems:
+    timeout: 5000000
      - standard_sockets:
          socket_binding:
            - name: ajp 
