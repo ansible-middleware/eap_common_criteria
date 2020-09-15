@@ -14,6 +14,7 @@
   tasks:
     - jcliff:
         wfly_home: "{{ jboss_home }}"
+        timeout: 5000000
         subsystems:
           - system_props:
               - name: jcliff.enabled
