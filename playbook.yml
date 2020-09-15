@@ -12,33 +12,11 @@
     - setup-pgsql-driver
     - jcliff
   tasks:
-    - jcliff:
-        wfly_home: "{{ jboss_home }}"
-        subsystems:
-        timeout: 5000000
-          - system_props:
-              - name: jcliff.enabled
-                value: "enabled.plus"
-          - drivers:
-              - driver_name: postgresql
-                driver_module_name: org.postgresql
-                driver_class_name: org.postgresql.Driver
-                driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource
-          - interfaces:
-              - name: internal
-                inet_address: '127.0.0.1'
-              - name: public
-                inet_address: '127.0.0.1'
-
-    - name: "Configure protocols and associated interfaces"
+    - name: "Block"
       include_tasks: tasks/jcliff.yml
-
-
-    - name: "Restart server"
-      service:
-        name: 'jbossas'
-        state: restarted
-      changed_when: false
+      loop:
+        - 1 
+        - 2 
 
 - name: "Check compliance of EAP setup with Common Criteria"
   hosts: jboss
