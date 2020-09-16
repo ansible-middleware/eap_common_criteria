@@ -28,11 +28,12 @@
           - name: public
             inet_address: '127.0.0.1'
       - deployments:
-          - name: "{{ app.name }}"
+          - name: "{{ app.name }}-{{ app_version }}.war"
             path: "{{ app.download_dir }}/{{ app.name }}-{{ app_version }}.war"
+            replace_name_regex: "{{  app.name }}-.*"
       - standard_sockets:
           socket_binding:
-            - name: ajp 
+            - name: ajp
               interface: internal
               port: '8009'
             - name: http
@@ -53,7 +54,7 @@
             - name: txn-status-manager
               interface: internal
               port: '4713'
-  
+
 - name: "Restart server"
   service:
     name: 'jbossas'
