@@ -15,8 +15,8 @@
     - name: "Block"
       include_tasks: tasks/jcliff.yml
       loop:
-        - 1 
-        - 2 
+        - 1
+        - 2
 
 - name: "Check compliance of EAP setup with Common Criteria"
   hosts: jboss
@@ -24,7 +24,7 @@
   vars:
     jboss_home: "{{ jboss_home_override | default(lookup('env','JBOSS_HOME')) }}"
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
-    jdk_id: openjdk 
+    jdk_id: openjdk
     java_version: "1.8"
     jboss_server_service:
       script: "/usr/lib/systemd/system/jbossas.service"
