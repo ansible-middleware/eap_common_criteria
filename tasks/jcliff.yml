@@ -1,3 +1,15 @@
+- set_fact:
+    app:
+      name: simple-webapp
+      download_dir: /tmp/
+      remote_dir: http://people.redhat.com/~rpelisse/
+      extension: war
+
+- name: Download a demo app to deploy
+  get_url:
+    url: "{{ app.remote_dir }}/{{ app.name }}-{{ app_version }}.{{ app.extension }}"
+    dest: "{{ app.download_dir }}"
+
 - jcliff:
     wfly_home: "{{ jboss_home }}"
     timeout: 5000000
@@ -15,6 +27,9 @@
             inet_address: '127.0.0.1'
           - name: public
             inet_address: '127.0.0.1'
+      - deployments:
+          - name: "{{ app.name }}"
+            path: "{{ app.download_dir }}/{{ app.name }}-{{ app_version }}.war"
       - standard_sockets:
           socket_binding:
             - name: ajp 

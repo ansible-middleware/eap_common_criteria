@@ -5,6 +5,7 @@
   vars:
     jboss_home: "{{ jboss_home_override | default(lookup('env','JBOSS_HOME')) }}"
     java_home: "{{ java_home_override | default(lookup('env', 'JAVA_HOME')) }}"
+    app_version: "{{ app_version_override | default('1.0') }}"
   collections:
     - wildfly.jcliff
   roles:
