@@ -63,4 +63,4 @@
 
 - name: Wait for server to restart
   wait_for:
-    timeout: 30
+    timeout: 5
