@@ -22,15 +22,15 @@
             driver_module_name: org.postgresql
             driver_class_name: org.postgresql.Driver
             driver_xa_datasource_class_name: org.postgresql.xa.PGXADataSource
+      - deployments:
+          - name: "{{ app.name }}-{{ app_version }}.war"
+            path: "{{ app.download_dir }}/{{ app.name }}-{{ app_version }}.war"
+            replace_name_regex: "{{  app.name }}-.*"
       - interfaces:
           - name: internal
             inet_address: '127.0.0.1'
           - name: public
             inet_address: '127.0.0.1'
-      - deployments:
-          - name: "{{ app.name }}-{{ app_version }}.war"
-            path: "{{ app.download_dir }}/{{ app.name }}-{{ app_version }}.war"
-            replace_name_regex: "{{  app.name }}-.*"
       - standard_sockets:
           socket_binding:
             - name: ajp
